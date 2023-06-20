@@ -6,6 +6,9 @@ const { createUserProfile, login } = require('../controllers/users');
 
 const router = express.Router();
 router.use(express.json());
+const userRouter = require('./users');
+const { authToken } = require('../middlewares/auth');
+const movieRouter = require('./movie');
 
 router.post(
   '/signin',
@@ -17,6 +20,8 @@ router.post(
   createUserProfileValidation,
   createUserProfile,
 );
+router.use('/users', authToken, userRouter);
+router.use('/movies', authToken, movieRouter);
 
 router.use('/*', (req, res, next) => {
   next(new NotFoundError(NOT_FOUND_ERROR_CODE.messages.pageIsNotFound));

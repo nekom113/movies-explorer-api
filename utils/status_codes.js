@@ -26,7 +26,7 @@ module.exports.NOT_FOUND_ERROR_CODE = {
   messages: {
     userIsNotFound: 'User profile is not found',
     movieIsNotFound: 'Movie is not found',
-    pageIsNotFound: 'Page is not found/Страница не найдена',
+    pageIsNotFound: 'Page is not found',
   },
 };
 module.exports.DUPLICATE_DATA_ERROR_CODE = {

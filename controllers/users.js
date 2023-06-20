@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 const User = require('../models/user');
 const {
   STATUS_CODE_CREATED,
@@ -57,14 +59,47 @@ const login = (req, res, next) => {
               new UnauthorizedError(UNAUTHORIZED_ERROR_CODE.messages.incorrectEmailOrPassword),
             );
           }
-          const token = jwt.sign({ _id: user._id }, 'SECRET_KEY', { expiresIn: '1d' });
+          const token = jwt.sign(
+            { _id: user._id },
+            NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+            { expiresIn: '1d' },
+          );
           return res.status(STATUS_CODE_OK.code).send({ token });
         });
     })
     .catch(next);
 };
 
+const getCurrentUser = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => res.send(user))
+    .catch((err) => next(err));
+};
+
+const userProfileUpdate = (req, res, next) => {
+  const { name, email } = req.body;
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    { name, email },
+    {
+      new: true,
+      runValidators: true,
+    },
+  )
+    .then((user) => {
+      if (!user) {
+        return next(new NotFoundError(NOT_FOUND_ERROR_CODE.messages.userIsNotFound));
+      }
+      return res.status(STATUS_CODE_OK.code).send(user);
+    })
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return new BadRequestError(BAD_REQUEST_CODE.message);
+      }
+      return next(err);
+    });
+};
 
 module.exports = {
-  createUserProfile, login,
+  createUserProfile, login, getCurrentUser, userProfileUpdate,
 };

@@ -52,16 +52,6 @@ module.exports.getCurrentUserValidation = celebrate({
         .custom(idValidation),
     }),
 });
-module.exports.getUserByIdValidation = celebrate({
-  params: Joi
-    .object()
-    .keys({
-      userId: Joi
-        .string()
-        .required()
-        .custom(idValidation),
-    }),
-});
 
 module.exports.userProfileUpdateValidation = celebrate({
   body: Joi
@@ -72,35 +62,41 @@ module.exports.userProfileUpdateValidation = celebrate({
         .required()
         .min(2)
         .max(30),
-      about: Joi
+      email: Joi
         .string()
-        .min(2)
-        .max(30),
+        .email(),
     }),
 });
 
 module.exports.createMovieValidation = celebrate({
-  body: Joi
-    .object()
-    .keys({
-      name: Joi
-        .string()
-        .required()
-        .min(2)
-        .max(30),
-      link: Joi
-        .string()
-        .required()
-        .pattern(urlRegex),
-    }),
+  body: Joi.object().keys({
+    country: Joi.string().required(),
+    director: Joi.string().required(),
+    duration: Joi.number().required(),
+    year: Joi.string().required(),
+    description: Joi.string().required(),
+    image: Joi.string().required().pattern(urlRegex),
+    trailerLink: Joi.string().required().pattern(urlRegex),
+    thumbnail: Joi.string().required().pattern(urlRegex),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
+    movieId: Joi.number().required(),
+  }),
+});
+
+module.exports.deleteMovieValidation = celebrate({
+  params: Joi.object().keys({
+    cardId: Joi.string().custom(idValidation),
+  }),
 });
 
 module.exports.deleteMovieValidation = celebrate({
   params: Joi
     .object()
     .keys({
-      cardId: Joi
+      movieId: Joi
         .string()
+        .required()
         .custom(idValidation),
     }),
 });
