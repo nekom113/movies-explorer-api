@@ -13,7 +13,7 @@ const app = express();
 
 const {
   DB_ADDRESS = 'mongodb://127.0.0.1:27017/bitfilmsdb',
-  PORT = 3004,
+  PORT = 3000,
 } = process.env;
 
 app.use(cors());
