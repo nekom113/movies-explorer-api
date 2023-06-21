@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
+const cors = require('cors');
 const router = require('./routes');
 const { errorHandler } = require('./middlewares/error_handler');
 
@@ -11,6 +12,8 @@ const {
   DB_ADDRESS = 'mongodb://127.0.0.1:27017/bitfilmsdb',
   PORT = 3000,
 } = process.env;
+
+app.use(cors());
 
 const start = async () => {
   try {
