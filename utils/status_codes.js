@@ -8,32 +8,32 @@ module.exports.STATUS_CODE_CREATED = {
 };
 module.exports.BAD_REQUEST_CODE = {
   code: 400,
-  message: 'Input data is not correct',
+  message: 'Введенные данные некорректны',
 };
 module.exports.UNAUTHORIZED_ERROR_CODE = {
   code: 401,
   messages: {
-    authorizationError: 'Authorization Error',
-    incorrectEmailOrPassword: 'Incorrect email or password',
+    authorizationError: 'Ошибка авторизации',
+    incorrectEmailOrPassword: 'Неверный адрес почты или пароль',
   },
 };
 module.exports.FORBIDDEN_ERROR_CODE = {
   code: 403,
-  message: 'Insufficient rights to delete this movie',
+  message: 'Недостаточно прав для удаления этого фильма',
 };
 module.exports.NOT_FOUND_ERROR_CODE = {
   code: 404,
   messages: {
-    userIsNotFound: 'User profile is not found',
-    movieIsNotFound: 'Movie is not found',
-    pageIsNotFound: 'Page is not found',
+    userIsNotFound: 'Профиль пользователя не найден',
+    movieIsNotFound: 'Фильм не найден',
+    pageIsNotFound: 'Страница не найдена',
   },
 };
 module.exports.DUPLICATE_DATA_ERROR_CODE = {
   code: 409,
-  message: 'User already registered',
+  message: 'Пользователь уже зарегистрирован',
 };
 module.exports.INTERNAL_SERVER_ERROR_CODE = {
   code: 500,
-  message: 'Internal server error',
+  message: 'Внутренняя ошибка сервера',
 };
