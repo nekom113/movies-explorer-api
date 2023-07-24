@@ -8,7 +8,7 @@ module.exports.STATUS_CODE_CREATED = {
 };
 module.exports.BAD_REQUEST_CODE = {
   code: 400,
-  message: 'Введенные данные не корректны',
+  message: 'Введенные данные некорректны',
 };
 module.exports.UNAUTHORIZED_ERROR_CODE = {
   code: 401,
